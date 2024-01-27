@@ -27,9 +27,9 @@ public class BrowserConfig {
 
     public static void launchBrowser() {
         playwright = Playwright.create();
-//        browser = playwright.chromium().launch(new
-//                BrowserType.LaunchOptions().setHeadless(getConfiguration().browserHeadless()));
-        browser = playwright.chromium().launch();
+        browser = playwright.chromium().launch(new
+                BrowserType.LaunchOptions().setHeadless(getConfiguration().browserHeadless()));
+//        browser = playwright.chromium().launch();
     }
 
     public static void closeBrowser() {

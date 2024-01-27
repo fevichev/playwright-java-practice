@@ -1,28 +1,27 @@
 package org.play.config.factory;
 
-import com.microsoft.playwright.*;
+import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserContext;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.Playwright;
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
-import io.micronaut.context.annotation.Prototype;
-import jakarta.inject.Scope;
-import jakarta.inject.Singleton;
 
 @Factory
 public class PlaywrightFactory {
 
-    @Bean
+    @Bean(preDestroy = "close")
     public Playwright playwright() {
         return Playwright.create();
     }
 
-    @Bean
-//    @Singleton
+    @Bean(preDestroy = "close")
     public Browser browser(Playwright playwright) {
-        return playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        return playwright.chromium().launch();
     }
 
     @Bean
-    public BrowserContext context(Browser browser) {
+    public BrowserContext browserContext(Browser browser) {
         return browser.newContext();
     }
 
